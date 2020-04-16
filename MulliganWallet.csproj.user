@@ -3,6 +3,7 @@
   <PropertyGroup>
     <AndroidDesignerPreferredTheme>AppTheme</AndroidDesignerPreferredTheme>
     <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
-    <SelectedDevice>Samsung SM-G975U</SelectedDevice>
+    <SelectedDevice>pixel_3_xl_pie_9_0_-_api_28</SelectedDevice>
+    <DefaultDevice>pixel_3_xl_pie_9_0_-_api_28</DefaultDevice>
   </PropertyGroup>
 </Project>
