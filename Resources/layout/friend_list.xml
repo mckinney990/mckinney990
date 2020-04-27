@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="30dp">
     <TextView
-        android:text="Payment Methods"
+        android:text="Friend List"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -13,7 +13,7 @@
         android:gravity="center"
         android:layout_weight="0"
         android:textSize="32dp"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="Friend List" />
     <ListView
         android:layout_width="match_parent"
         android:layout_height="0"
@@ -29,17 +29,17 @@
         android:gravity="center">
         <Button
             android:text="Add"
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="match_parent"
-            android:id="@+id/btn_add_pmethod" />
+            android:id="@+id/btn_add_friend" />
         <Button
             android:text="Remove"
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="match_parent"
-            android:id="@+id/btn_remove_pmethod" />
+            android:id="@+id/btn_remove_friend" />
         <Button
             android:text="Exit"
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="match_parent"
             android:id="@+id/btn_exit_payment_methods" />
     </LinearLayout>
