@@ -28,8 +28,7 @@
         android:id="@+id/spinner1"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:spinnerMode="dropdown"
-        android:entries="@array/card_types" />
+        android:spinnerMode="dropdown" />
     <TextView
         android:text="Name on Card:"
         android:textAppearance="?android:attr/textAppearanceSmall"

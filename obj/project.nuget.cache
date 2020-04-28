@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "WBfJaygBtmDiXqOk71amf8mXSYdyZtV7p/2mwyB0LdXcU2/tQV7zLobARXXQugqsAp2iQ81eW9d2mQtrGkEU0w==",
+  "dgSpecHash": "SH23ySqh1ZJDOa/CEMANN6la7Xu+OhLehEDCBg4UKtdJmQxw80UCjyOtgA+1MtKRNa/vR5LHhpEUwqeQ78EbvQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\forsy\\source\\repos\\MulliganWallet\\MulliganWallet.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\forsy\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\forsy\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.arch.core.common\\1.1.1.3\\xamarin.android.arch.core.common.1.1.1.3.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.arch.core.runtime\\1.1.1.3\\xamarin.android.arch.core.runtime.1.1.1.3.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.arch.lifecycle.common\\1.1.1.3\\xamarin.android.arch.lifecycle.common.1.1.1.3.nupkg.sha512",
@@ -40,7 +40,7 @@
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.support.vector.drawable\\28.0.0.3\\xamarin.android.support.vector.drawable.28.0.0.3.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.support.versionedparcelable\\28.0.0.3\\xamarin.android.support.versionedparcelable.28.0.0.3.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.support.viewpager\\28.0.0.3\\xamarin.android.support.viewpager.28.0.0.3.nupkg.sha512",
-    "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.essentials\\1.3.1\\xamarin.essentials.1.3.1.nupkg.sha512"
+    "C:\\Users\\forsy\\.nuget\\packages\\xamarin.essentials\\1.5.3.1\\xamarin.essentials.1.5.3.1.nupkg.sha512"
   ],
   "logs": []
 }
