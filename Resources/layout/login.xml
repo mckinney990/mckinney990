@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/LoginLayout"
-    android:padding="40dp"
-    android:gravity="center">
+    android:padding="40dp">
     <TextView
         android:text="Login To MulliganWallet"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -73,5 +72,10 @@
             android:layout_height="match_parent"
             android:id="@+id/btnForgotPassword" />
     </LinearLayout>
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginProgress"
+        android:padding="10dp" />
 
 </LinearLayout>

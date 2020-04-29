@@ -17,19 +17,6 @@
         android:gravity="center"
         android:textSize="28dp" />
     <TextView
-        android:text="Type:"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2" />
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner1"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:spinnerMode="dropdown" />
-    <TextView
         android:text="Name on Card:"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"

@@ -39,21 +39,21 @@
             android:background="@color/material_blue_grey_950"
             android:textColor="@android:color/background_light" />
     </FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="John Smith"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:textSize="32sp"
+        android:id="@+id/MainMenuFullName"/>
     <Button
         android:text="Deposit\nor\nWithdraw"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"/>
-    <ListView
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:id="@+id/listView1"
-        android:layout_marginLeft="50.0dp"
-        android:layout_marginRight="50.0dp"
-        android:background="@color/material_blue_grey_800"
-        android:layout_marginTop="15.0dp"
-        android:layout_marginBottom="15.0dp" />
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"/>
     <LinearLayout
         android:orientation="horizontal"
         android:minWidth="25px"
@@ -62,7 +62,8 @@
         android:layout_height="80dp"
         android:id="@+id/linearLayout2"
         android:gravity="center"
-        android:layout_marginBottom="5.0dp">
+        android:layout_marginBottom="5.0dp"
+        android:layout_marginTop="10.0dp" >
         <Button
             android:text="Make\nTransaction"
             android:layout_width="110dp"

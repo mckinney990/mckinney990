@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 using Android.App;
 using Android.Content;
@@ -12,7 +12,10 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Views.InputMethods;
-using Newtonsoft.Json;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Bson.Serialization;
 
 namespace MulliganWallet
 {
@@ -21,8 +24,8 @@ namespace MulliganWallet
     {
         private EditText txtUserID, txtPassword;
         private Button btnLogin, btnForgotPassword, btnCancel;
-        private List<LoginItem> loginItems;
         private LinearLayout layout;
+        private ProgressBar progress;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -35,12 +38,9 @@ namespace MulliganWallet
             btnCancel = FindViewById<Button>(Resource.Id.btnCancelLogin);
             layout = FindViewById<LinearLayout>(Resource.Id.LoginLayout);
 
-            AssetManager assets = this.Assets;
-            using (StreamReader reader = new StreamReader(assets.Open("dummy_logins.json")))
-            {
-                loginItems = JsonConvert.DeserializeObject<List<LoginItem>>(reader.ReadToEnd());
-            }
-
+            progress = FindViewById<ProgressBar>(Resource.Id.loginProgress);
+            progress.Visibility = ViewStates.Invisible;
+            
             layout.Click += (object sender, EventArgs e) =>
             {
                 InputMethodManager manager = (InputMethodManager)this.GetSystemService(Activity.InputMethodService);
@@ -70,24 +70,26 @@ namespace MulliganWallet
             };
         }
 
-        private void BtnLogin_Click(object sender, EventArgs e)
+        private async void BtnLogin_Click(object sender, EventArgs e)
         {
+            progress.Visibility = ViewStates.Visible;
             String userid = txtUserID.Text;
             String password = txtPassword.Text;
-            foreach (LoginItem item in loginItems)
+            var result = await ModelMethods.FindUserByUserID(userid);
+            progress.Visibility = ViewStates.Invisible;
+            if (result != null && result.Password == password)
             {
-                if (userid == item.Username || userid == item.Email || userid == item.PhoneNumber)
-                {
-                    if (password != item.Password)
-                        break;
-                    Toast.MakeText(this, "Login successful.", ToastLength.Short).Show();
-                    Intent intent = new Intent(this, typeof(MainMenuActivity));
-                    this.StartActivity(intent);
-                    return;
-                }
+                Toast.MakeText(this, "Login Successful", ToastLength.Short).Show();
+                Intent intent = new Intent(this, typeof(MainActivity));
+                intent.PutExtra("UserID", result.Id.ToString());
+                this.StartActivity(intent);
+                Finish();
             }
-            Toast.MakeText(this, "Login failed.", ToastLength.Short).Show();
+            else
+            {
+                Toast.MakeText(this, "Login failed.", ToastLength.Short).Show();
+            }
         }
-
     }
+
 }

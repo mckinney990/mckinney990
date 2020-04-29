@@ -14,18 +14,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:id="@+id/txtNotificationListItemDsc"
+        android:id="@+id/NotificationDescription"
         android:gravity="center" />
     <Button
-        android:text="View"
-        android:layout_width="50dp"
+        android:text="Btn One"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:id="@+id/btnViewNotificationFromList"
+        android:id="@+id/NotificationButtonOne"
         android:textSize="8sp" />
     <Button
-        android:text="Dismiss"
-        android:layout_width="60dp"
+        android:text="Btn Two"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:id="@+id/btnDismissNotificationFromList"
+        android:id="@+id/NotificationButtonTwo"
         android:textSize="8sp" />
 </LinearLayout>

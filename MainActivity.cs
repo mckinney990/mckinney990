@@ -1,46 +1,34 @@
-﻿using Android.App;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Support.V7.App;
 using Android.Runtime;
+using Android.Views;
 using Android.Widget;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 
 namespace MulliganWallet
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
-    public class MainActivity : AppCompatActivity
+    [Activity(Label = "MainActivity")]
+    public class MainActivity : Activity
     {
-        private Button btnGoToLogin, btnGoToRegistration;
+        private AccountModel account;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            SetContentView(Resource.Layout.activity_main);
-
-            btnGoToLogin = FindViewById<Button>(Resource.Id.btnGotoLoginFromStart);
-            btnGoToRegistration = FindViewById<Button>(Resource.Id.btnGotoRegisterFromStart);
-
-            btnGoToLogin.Click += BtnGoToLogin_Click;
-            btnGoToRegistration.Click += BtnGoToRegistration_Click;
+            SetContentView(Resource.Layout.main);
+            GetAccount();
         }
 
-        private void BtnGoToLogin_Click(object sender, System.EventArgs e)
+        private async void GetAccount()
         {
-            Intent intent = new Intent(this, typeof(LoginActivity));
-            this.StartActivity(intent);
-        }
-
-        private void BtnGoToRegistration_Click(object sender, System.EventArgs e)
-        {
-            Intent intent = new Intent(this, typeof(RegistrationActivity));
-            this.StartActivity(intent);
-        }
-
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
-        {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            account = await ModelMethods.FindAccountByUserID(Intent.GetStringExtra("UserID"));
         }
     }
 }
