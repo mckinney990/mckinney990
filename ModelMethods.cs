@@ -44,6 +44,20 @@ namespace MulliganWallet
                 return null;
             }
         }
+        public static async Task<UserModel> FindUserByID(BsonObjectId id)
+        {
+            try
+            {
+                var filter = Builders<UserModel>.Filter.Eq("Id", id);
+                var results = await Database.Users.FindAsync(filter);
+                var result = await results.FirstAsync();
+                return result;
+            }
+            catch
+            {
+                return null;
+            }
+        }
         public static async Task<AccountModel> FindAccountByUserID(String userid)
         {
             try
