@@ -53,7 +53,8 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
-        android:paddingBottom="20dp"/>
+        android:paddingBottom="20dp"
+        android:id="@+id/btn_main_deposit_withdraw"/>
     <LinearLayout
         android:orientation="horizontal"
         android:minWidth="25px"
@@ -97,7 +98,7 @@
             android:text="Profile"
             android:layout_width="110dp"
             android:layout_height="match_parent"
-            android:id="@+id/button3"
+            android:id="@+id/btn_main_view_profile"
             android:textSize="12dp" />
         <Button
             android:text="History"

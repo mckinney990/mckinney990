@@ -40,12 +40,6 @@ namespace MulliganWallet
 
             progress = FindViewById<ProgressBar>(Resource.Id.loginProgress);
             progress.Visibility = ViewStates.Invisible;
-            
-            layout.Click += (object sender, EventArgs e) =>
-            {
-                InputMethodManager manager = (InputMethodManager)this.GetSystemService(Activity.InputMethodService);
-                manager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.None);
-            };
 
             btnLogin.Click += BtnLogin_Click;
 
@@ -79,9 +73,13 @@ namespace MulliganWallet
             progress.Visibility = ViewStates.Invisible;
             if (result != null && result.Password == password)
             {
+                var account = await ModelMethods.FindAccountByUserID(result.Id);
+                float Balance = account == null ? 0.0f : account.Balance;
                 Toast.MakeText(this, "Login Successful", ToastLength.Short).Show();
                 Intent intent = new Intent(this, typeof(MainActivity));
-                intent.PutExtra("UserID", result.Id.ToString());
+                intent.PutExtra("Balance", Balance);
+                intent.PutExtra("FullName", result.FullName);
+                intent.PutExtra("PersonID", result.Id.ToString());
                 this.StartActivity(intent);
                 Finish();
             }

@@ -18,40 +18,52 @@ namespace MulliganWallet
     {
         [BsonId]
         public BsonObjectId Id { get; set; }
-        public String FullName { get; set; }
-        public String Username { get; set; }
-        public String Email { get; set; }
-        public String PhoneNumber { get; set; }
-        public String Password { get; set; }
+        public string FullName { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Password { get; set; }
     }
     public class AccountModel
     {
         [BsonId]
         public BsonObjectId Id { get; set; }
         public BsonObjectId PersonID { get; set; }
-        public BsonObjectId[] FriendIDs { get; set; }
-        public BsonObjectId[] SavedTransactions { get; set; }
-        public int Balance { get; set; }
+        public List<BsonObjectId> FriendIDs { get; set; }
+        public List<BsonObjectId> SavedTransactions { get; set; }
+        public List<PaymentModel> PaymentMethods { get; set; }
+        public float Balance { get; set; }
     }
     public class PaymentModel
     {
         [BsonId]
         public BsonObjectId Id { get; set; }
-        public String NameOnCard { get; set; }
-        public String CardNumber { get; set; }
-        public String ExpirtDate { get; set; }
-        public String SecurityNumber { get; set; }
-        public String ZipCode { get; set; }
+        public string Description { get; set; }
+        public string NameOnCard { get; set; }
+        public string CardNumber { get; set; }
+        public string ExpiryDate { get; set; }
+        public string SecurityNumber { get; set; }
+        public string ZipCode { get; set; }
     }
     public class TransactionModel
     {
         [BsonId]
         public BsonObjectId Id { get; set; }
-        public String Description { get; set; }
+        public string Description { get; set; }
         public BsonObjectId SenderID { get; set; }
         public BsonObjectId RecipientID { get; set; }
-        public String Memo { get; set; }
-        public int Amount { get; set; }
+        public string Memo { get; set; }
+        public float Amount { get; set; }
         public BsonObjectId PaymentMethodID { get; set; }
+    }
+    public class NotificationModel
+    {
+        [BsonId]
+        public BsonObjectId Id { get; set; }
+        public BsonObjectId PersonID { get; set; }
+        public BsonObjectId DataID { get; set; }
+        public bool Viewed { get; set; }
+        public string Description { get; set; }
+        public string Type { get; set; }
     }
 }
