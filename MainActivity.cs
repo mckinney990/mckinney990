@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
@@ -22,55 +21,68 @@ namespace MulliganWallet
         private AccountModel account;
         private UserModel user;
         private TextView balance, fullname;
-        private Button depositwithdraw, makeTransaction, viewNotifications, qrReader, btnViewProfile, viewHistory, viewFriends;
+        private Button btnGoToNotifications, btnGoToMakeTransaction, btnGoToProfile, btnGoToHistory, btnGoToFriends;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.main);
             balance = FindViewById<TextView>(Resource.Id.MainMenuBalance);
             fullname = FindViewById<TextView>(Resource.Id.MainMenuFullName);
-            balance.Text = String.Format("Balance:\n{0:C}", Intent.GetFloatExtra("Balance", 0));
-            fullname.Text = Intent.GetStringExtra("FullName");
+            //Task.Run(() => GetData(Intent.GetStringExtra("UserID")));
 
-            btnViewProfile = FindViewById<Button>(Resource.Id.btn_main_view_profile);
-            btnViewProfile.Click += BtnViewProfile_Click;
+            btnGoToNotifications = FindViewById<Button>(Resource.Id.btnNotificationsFromMain);
+            btnGoToNotifications.Click += btnGoToNotifications_Click;
 
-            depositwithdraw = FindViewById<Button>(Resource.Id.btn_main_deposit_withdraw);
-            depositwithdraw.Click += Depositwithdraw_Click;
+            btnGoToFriends = FindViewById<Button>(Resource.Id.btnFriendsFromMain);
+            btnGoToFriends.Click += btnGoToFriends_Click;
+
+            btnGoToHistory = FindViewById<Button>(Resource.Id.btnHistoryFromMain);
+            btnGoToHistory.Click += btnGoToHistory_Click;
+
+            btnGoToMakeTransaction = FindViewById<Button>(Resource.Id.btnMakeTransactionFromMain);
+            btnGoToMakeTransaction.Click += btnGoToMakeTransaction_Click;
+
+            btnGoToProfile  = FindViewById<Button>(Resource.Id.btnProfileFromMain);
+            btnGoToProfile.Click += btnGoToProfile_Click;
         }
 
-        private void Depositwithdraw_Click(object sender, EventArgs e)
+        private async void GetData(String id)
         {
-            Intent intent = new Intent(this, typeof(DepositWithdrawActivity));
-            intent.PutExtra("PersonID", Intent.GetStringExtra("PersonID"));
-            intent.PutExtra("Balance", Intent.GetFloatExtra("Balance", 0));
-            this.StartActivityForResult(intent, 0);
+            account = await ModelMethods.FindAccountByUserID(id);
+            user = await ModelMethods.FindUserByID(account.PersonID);
+            balance.Text = String.Format("Balance:\n{0:C}", account.Balance);
+            fullname.Text = user.FullName;
         }
 
-        private async void BtnViewProfile_Click(object sender, EventArgs e)
+        private void btnGoToNotifications_Click(object sender, System.EventArgs e)
         {
-            BsonObjectId ID = ObjectId.Parse(Intent.GetStringExtra("PersonID"));
 
-            var result = await ModelMethods.FindUserByID(ID);
-
-            if (result != null)
-            {
-                Intent intent = new Intent(this, typeof(ProfileActivity));
-                intent.PutExtra("FullName", result.FullName);
-                intent.PutExtra("Username", result.Username);
-                intent.PutExtra("Email", result.Email);
-                intent.PutExtra("PhoneNumber", result.PhoneNumber);
-                intent.PutExtra("PersonID", Intent.GetStringExtra("PersonID"));
-                this.StartActivity(intent);
-            }
+            Intent intent = new Intent(this, typeof(NotificationsActivity));
+            this.StartActivity(intent);
         }
-
-        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        private void btnGoToFriends_Click(object sender, System.EventArgs e)
         {
-            base.OnActivityResult(requestCode, resultCode, data);
-            if (resultCode == 0)
-                if (resultCode == Result.Ok)
-                    balance.Text = data.GetFloatExtra("Balance", 0.0f).ToString();
+
+            Intent intent = new Intent(this, typeof(FriendActivity));
+            this.StartActivity(intent);
+        }
+        private void btnGoToHistory_Click(object sender, System.EventArgs e)
+        {
+
+            Intent intent = new Intent(this, typeof(HistoryActivity));
+            this.StartActivity(intent);
+        }
+        private void btnGoToMakeTransaction_Click(object sender, System.EventArgs e)
+        {
+
+            Intent intent = new Intent(this, typeof(MakeTransactionActivity));
+            this.StartActivity(intent);
+        }
+        private void btnGoToProfile_Click(object sender, System.EventArgs e)
+        {
+
+            Intent intent = new Intent(this, typeof(MakeTransactionActivity));
+            this.StartActivity(intent);
         }
     }
 }

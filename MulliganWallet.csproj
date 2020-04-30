@@ -67,13 +67,13 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DepositWithdrawActivity.cs" />
+    <Compile Include="FriendActivity.cs" />
+    <Compile Include="HistoryActivity.cs" />
     <Compile Include="LoginActivity.cs" />
+    <Compile Include="MakeTransactionActivity.cs" />
     <Compile Include="ModelMethods.cs" />
     <Compile Include="Models.cs" />
-    <Compile Include="PaymentAddActivity.cs" />
-    <Compile Include="PaymentEditActivity.cs" />
-    <Compile Include="PaymentMethodActivity.cs" />
+    <Compile Include="NotificationsActivity.cs" />
     <Compile Include="ProfileActivity.cs" />
     <Compile Include="StartActivity.cs" />
     <Compile Include="MainActivity.cs" />
@@ -203,11 +203,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\notification_item.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\payment_spinner_row.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
