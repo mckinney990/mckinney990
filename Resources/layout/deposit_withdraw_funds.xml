@@ -1,11 +1,10 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="40dp"
-    android:id="@+id/ll_dw">
+    android:padding="40dp">
     <TextView
         android:text="Deposit or Withdraw Funds"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -13,7 +12,7 @@
         android:layout_height="wrap_content"
         android:minWidth="25px"
         android:minHeight="25px"
-        android:id="@+id/lbl_dw_title"
+        android:id="@+id/textView1"
         android:gravity="center"
         android:layout_marginBottom="15.0dp" />
     <LinearLayout
@@ -22,7 +21,7 @@
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ll_dw_action_container"
+        android:id="@+id/linearLayout1"
         android:gravity="center"
         android:layout_marginBottom="15.0dp">
         <TextView
@@ -30,52 +29,39 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/lbl_dw_change_type"
+            android:id="@+id/textView2"
             android:gravity="center" />
         <Button
-            android:text="Deposit"
+            android:text="Deposit Funds"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/btn_dw_change_type" />
+            android:id="@+id/button1" />
     </LinearLayout>
     <TextView
         android:text="Payment Method:"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/lbl_dw_payment_method"
+        android:id="@+id/textView3"
         android:layout_marginBottom="10.0dp" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner1"
+        android:layout_marginBottom="15.0dp" />
     <LinearLayout
         android:orientation="horizontal"
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ll_dw_payment_method_container">
-        <Spinner
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/sp_dw_payment_method"/>
-        <Button
-            android:text="Refresh"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/btn_dw_refresh_payment_methods" />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ll_dw_balance_container">
+        android:id="@+id/linearLayout5">
         <TextView
             android:text="Current Balance:"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/lbl_dw_current_balance"
+            android:id="@+id/textView5"
             android:gravity="center" />
         <LinearLayout
             android:orientation="vertical"
@@ -83,44 +69,13 @@
             android:minHeight="25px"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/ll_wd_current_balance_conainer"
+            android:id="@+id/linearLayout7"
             android:gravity="center">
             <EditText
                 android:inputType="numberDecimal"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/txt_dw_current_balance"
-                android:textSize="12sp"
-                android:enabled="false" />
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ll_dw_amount_moved_container">
-        <TextView
-            android:text="Amount Moved: "
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/lbl_dw_amount_moved"
-            android:gravity="center" />
-        <LinearLayout
-            android:orientation="vertical"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/ll_dw_amount_moved_lbl_container"
-            android:gravity="center">
-            <EditText
-                android:inputType="numberDecimal"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/txt_dw_amount_moved"
+                android:id="@+id/editText5"
                 android:textSize="12sp"/>
         </LinearLayout>
     </LinearLayout>
@@ -130,18 +85,48 @@
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ll_dw_buttons_container"
+        android:id="@+id/linearLayout3">
+        <TextView
+            android:text="Amount Moved: "
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/textView4"
+            android:gravity="center" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/linearLayout4"
+            android:gravity="center">
+            <EditText
+                android:inputType="numberDecimal"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText1"
+                android:textSize="12sp"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
         android:gravity="center">
         <Button
             android:text="Send"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/btn_dw_send" />
+            android:id="@+id/button2" />
         <Button
             android:text="cancel"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/btn_dw_cancel" />
+            android:id="@+id/button3" />
     </LinearLayout>
 
 </LinearLayout>

@@ -97,7 +97,7 @@
                 android:text="Send Money"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/button2"
+                android:id="@+id/btnTransactionType" />
                 android:layout_weight="1" />
         </LinearLayout>
         <LinearLayout
@@ -112,19 +112,19 @@
                 android:text="Send"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/button3"
+                android:id="@+id/btnSendTransaction" />
                 android:layout_weight="1" />
             <Button
                 android:text="Save"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/button4"
+                 android:id="@+id/btnSaveTransaction" />
                 android:layout_weight="1" />
             <Button
                 android:text="Cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/button5"
+                android:id="@+id/btnCancelTransaction" />
                 android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>

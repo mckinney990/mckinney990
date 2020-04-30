@@ -30,7 +30,7 @@
             android:text="Balance:\n$0.00"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="200dp"
-            android:id="@+id/MainMenuBalance"
+            android:id="@+id/textView1"
             android:gravity="center"
             android:layout_gravity="center"
             android:padding="20dp"
@@ -39,21 +39,21 @@
             android:background="@color/material_blue_grey_950"
             android:textColor="@android:color/background_light" />
     </FrameLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text=""
-        android:gravity="center"
-        android:paddingBottom="5dp"
-        android:textSize="32sp"
-        android:id="@+id/MainMenuFullName"/>
     <Button
         android:text="Deposit\nor\nWithdraw"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"/>
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"/>
+    <ListView
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/listView1"
+        android:layout_marginLeft="50.0dp"
+        android:layout_marginRight="50.0dp"
+        android:background="@color/material_blue_grey_800"
+        android:layout_marginTop="15.0dp"
+        android:layout_marginBottom="15.0dp" />
     <LinearLayout
         android:orientation="horizontal"
         android:minWidth="25px"
@@ -62,25 +62,24 @@
         android:layout_height="80dp"
         android:id="@+id/linearLayout2"
         android:gravity="center"
-        android:layout_marginBottom="5.0dp"
-        android:layout_marginTop="10.0dp" >
+        android:layout_marginBottom="5.0dp">
         <Button
             android:text="Make\nTransaction"
             android:layout_width="110dp"
             android:layout_height="match_parent"
-             android:id="@+id/btnMakeTransactionFromMain" />
+            android:id="@+id/button1"
             android:textSize="12dp" />
         <Button
             android:text="Notifications"
             android:layout_width="120dp"
             android:layout_height="match_parent"
-            android:id="@+id/btnNotificationsFromMain" />
+            android:id="@+id/button2"
             android:textSize="12dp" />
         <Button
             android:text="QR Reader"
             android:layout_width="110dp"
             android:layout_height="match_parent"
-            android:id="@+id/btnQRReaderFromMain" />
+            android:id="@+id/button3"
             android:textSize="12dp" />
     </LinearLayout>
     <LinearLayout
@@ -97,19 +96,19 @@
             android:text="Profile"
             android:layout_width="110dp"
             android:layout_height="match_parent"
-             android:id="@+id/btnProfileFromMain" />
+            android:id="@+id/button3"
             android:textSize="12dp" />
         <Button
             android:text="History"
             android:layout_width="120dp"
             android:layout_height="match_parent"
-             android:id="@+id/btnHistoryFromMain" />
+            android:id="@+id/button2"
             android:textSize="12dp" />
         <Button
             android:text="Friends"
             android:layout_width="110dp"
             android:layout_height="match_parent"
-            android:id="@+id/btnFriendsFromMain" />
+            android:id="@+id/button1"
             android:textSize="12dp" />
     </LinearLayout>
 </LinearLayout>
