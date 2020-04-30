@@ -21,7 +21,7 @@ namespace MulliganWallet
         private PaymentMethodAdapter adapter;
         private List<PaymentModel> models;
         private SynchronizationContext sc;
-        private EditText balance, amt_change;
+        private EditText balance, change;
         float current_balance;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -40,7 +40,7 @@ namespace MulliganWallet
             current_balance = Intent.GetFloatExtra("Balance", 0.0f);
             balance = FindViewById<EditText>(Resource.Id.txt_dw_current_balance);
             balance.Text = current_balance.ToString();
-            amt_change = FindViewById<EditText>(Resource.Id.txt_dw_amount_moved);
+            change = FindViewById<EditText>(Resource.Id.txt_dw_amount_moved);
 
             send.Click += Send_Click;
 
@@ -90,7 +90,7 @@ namespace MulliganWallet
             float change;
             try
             {
-                float.TryParse(amt_change.Text, out change);
+                float.TryParse(balance.Text, out change);
             }
             catch
             {
