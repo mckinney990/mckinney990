@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,11 +15,100 @@
         android:layout_weight="0"
         android:textSize="32dp"
         android:layout_marginBottom="20dp" />
-    <ListView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/list_payment_methods"
-        android:layout_weight="1"/>
+        android:text="Select Payment Method"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1">
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/spPaymentMethods"/>
+        <Button
+            android:text="Refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/btn_pm_refresh" />
+    </LinearLayout>
+    <TextView
+        android:text="Description"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblPaymentMethodDescription" />
+    <TextView
+        android:text="Description Here"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtPaymentMethodDescription"
+        android:textSize="24sp" />
+    <TextView
+        android:text="Name on Card:"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblNameOnCard" />
+    <TextView
+        android:text="John Smith"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtNameOnCard"
+        android:textSize="24sp" />
+    <TextView
+        android:text="Number:"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblCardNumber" />
+    <TextView
+        android:text="0000-0000-0000-0000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtCardNumber"
+        android:textSize="24sp" />
+    <TextView
+        android:text="Expiry Date:"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblExpiry" />
+    <TextView
+        android:text="01/1900"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtExpiry"
+        android:textSize="24sp" />
+    <TextView
+        android:text="Security Number:"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblSecurityCode" />
+    <TextView
+        android:text="123"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtSecurityCode"
+        android:textSize="24sp" />
+    <TextView
+        android:text="ZIP Code:"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblZipCode" />
+    <TextView
+        android:text="12345"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtZipCode"
+        android:textSize="24sp" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -33,10 +123,10 @@
             android:layout_height="match_parent"
             android:id="@+id/btn_add_pmethod" />
         <Button
-            android:text="Remove"
+            android:text="Edit"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:id="@+id/btn_remove_pmethod" />
+            android:id="@+id/btn_edit_pmethod" />
         <Button
             android:text="Exit"
             android:layout_width="100dp"

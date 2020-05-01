@@ -11,6 +11,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 
 namespace MulliganWallet
 {
@@ -23,10 +24,15 @@ namespace MulliganWallet
         private SynchronizationContext sc;
         private TextView description, nameoncard, number, expiry, security, zip;
         private Button add, edit, exit, refresh;
+        private UserModel user;
+        private AccountModel account;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.payment_list);
+
+            user = BsonSerializer.Deserialize<UserModel>(Intent.GetStringExtra("User"));
+            account = BsonSerializer.Deserialize<AccountModel>(Intent.GetStringExtra("Account"));
 
             spinner = FindViewById<Spinner>(Resource.Id.spPaymentMethods);
             models = new List<PaymentModel>();
@@ -51,15 +57,24 @@ namespace MulliganWallet
             add.Click += Add_Click;
             add.Click += Refresh_Click;
             edit.Click += Edit_Click;
-            exit.Click += (object sender, EventArgs args) => { Finish(); };
+            exit.Click += (object sender, EventArgs args) => 
+            {
+                Intent intent = new Intent(this, typeof(ProfileActivity));
+                intent.PutExtra("User", user.ToJson());
+                intent.PutExtra("Account", account.ToJson());
+                this.StartActivity(intent);
+                Finish();
+            };
             refresh.Click += Refresh_Click;
         }
 
         private void Add_Click(object sender, EventArgs e)
         {
             Intent intent = new Intent(this, typeof(PaymentAddActivity));
-            intent.PutExtra("PersonID", Intent.GetStringExtra("PersonID"));
+            intent.PutExtra("User", user.ToJson());
+            intent.PutExtra("Account", account.ToJson());
             this.StartActivity(intent);
+            Finish();
         }
 
         private void Edit_Click(object sender, EventArgs e)
@@ -70,19 +85,19 @@ namespace MulliganWallet
             }
             else
             {
-                var PersonID = ObjectId.Parse(Intent.GetStringExtra("PersonID"));
                 PaymentModel model = models[spinner.SelectedItemPosition];
                 Intent intent = new Intent(this, typeof(PaymentEditActivity));
                 intent.PutExtra("Model", model.ToJson());
-                intent.PutExtra("PersonID", Intent.GetStringExtra("PersonID"));
+                intent.PutExtra("User", user.ToJson());
+                intent.PutExtra("Account", account.ToJson());
                 this.StartActivity(intent);
+                Finish();
             }
         }
 
         private async void Refresh_Click(object sender, EventArgs e)
         {
-            var PersonID = ObjectId.Parse(Intent.GetStringExtra("PersonID"));
-            var PaymentMethods = await ModelMethods.GetPaymentMethods(PersonID);
+            var PaymentMethods = await ModelMethods.GetPaymentMethods(account.PersonID);
             if (PaymentMethods == null)
             {
                 Toast.MakeText(this, "You don't have any payment methods on file. Please add a payment method and try again.", ToastLength.Long).Show();

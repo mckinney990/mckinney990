@@ -67,19 +67,24 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FriendActivity.cs" />
-    <Compile Include="HistoryActivity.cs" />
+    <Compile Include="DepositWithdrawActivity.cs" />
     <Compile Include="LoginActivity.cs" />
-    <Compile Include="MakeTransactionActivity.cs" />
+    <Compile Include="TransactionMakeActivity.cs" />
     <Compile Include="ModelMethods.cs" />
     <Compile Include="Models.cs" />
-    <Compile Include="NotificationsActivity.cs" />
+    <Compile Include="PaymentAddActivity.cs" />
+    <Compile Include="PaymentEditActivity.cs" />
+    <Compile Include="PaymentMethodActivity.cs" />
     <Compile Include="ProfileActivity.cs" />
+    <Compile Include="ProfileEditActivity.cs" />
     <Compile Include="StartActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="RegistrationActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransactionAdapter.cs" />
+    <Compile Include="TransactionHistoryActivity.cs" />
+    <Compile Include="TransactionViewActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\dummy_logins.json" />
@@ -203,6 +208,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\notification_item.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\payment_spinner_row.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\transaction_item.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

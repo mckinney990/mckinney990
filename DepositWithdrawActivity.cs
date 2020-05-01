@@ -10,37 +10,40 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 
 namespace MulliganWallet
 {
     [Activity(Label = "DepositWithdrawActivity")]
     class DepositWithdrawActivity : Activity
     {
-        private Button depositwithdraw, send, cancel, refresh;
+        private Button depositwithdraw, send, cancel;
         private Spinner spinner;
         private PaymentMethodAdapter adapter;
-        private List<PaymentModel> models;
-        private SynchronizationContext sc;
-        private EditText balance, change;
-        float current_balance;
+        private EditText balance, changed;
+        private AccountModel account;
+        private UserModel user; 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.deposit_withdraw_funds);
+
+            account = BsonSerializer.Deserialize<AccountModel>(Intent.GetStringExtra("Account"));
+            user = BsonSerializer.Deserialize<UserModel>(Intent.GetStringExtra("User"));
+
             depositwithdraw = FindViewById<Button>(Resource.Id.btn_dw_change_type);
             send = FindViewById<Button>(Resource.Id.btn_dw_send);
             cancel = FindViewById<Button>(Resource.Id.btn_dw_cancel);
-            spinner = FindViewById<Spinner>(Resource.Id.sp_dw_payment_method);
-            refresh = FindViewById<Button>(Resource.Id.btn_dw_refresh_payment_methods);
-            models = new List<PaymentModel>();
-            adapter = new PaymentMethodAdapter(this, models);
-            spinner.Adapter = adapter;
-            sc = SynchronizationContext.Current;
 
-            current_balance = Intent.GetFloatExtra("Balance", 0.0f);
+            spinner = FindViewById<Spinner>(Resource.Id.sp_dw_payment_method);
+
+            adapter = new PaymentMethodAdapter(this, account.PaymentMethods);
+            spinner.Adapter = adapter;
+
             balance = FindViewById<EditText>(Resource.Id.txt_dw_current_balance);
-            balance.Text = current_balance.ToString();
-            change = FindViewById<EditText>(Resource.Id.txt_dw_amount_moved);
+            balance.Text = String.Format("{0:C}", account.Balance);
+
+            changed = FindViewById<EditText>(Resource.Id.txt_dw_amount_moved);
 
             send.Click += Send_Click;
 
@@ -53,67 +56,49 @@ namespace MulliganWallet
             };
 
             cancel.Click += (object sender, EventArgs args) => {
-                SetResult(Result.Canceled);
-                Finish(); 
+                Return(); 
             };
-
-            refresh.Click += Refresh_Click;
-        }
-
-        private async void Refresh_Click(object sender, EventArgs e)
-        {
-            var PersonID = ObjectId.Parse(Intent.GetStringExtra("PersonID"));
-            var PaymentMethods = await ModelMethods.GetPaymentMethods(PersonID);
-            if (PaymentMethods == null)
-            {
-                Toast.MakeText(this, "You don't have any payment methods on file. Please add a payment method and try again.", ToastLength.Long).Show();
-            }
-            else
-            {
-                sc.Post(new SendOrPostCallback(o => {
-                    models.Clear();
-                    adapter.NotifyDataSetChanged();
-                }), null);
-                foreach (var p in PaymentMethods)
-                {
-                    sc.Post(new SendOrPostCallback(o =>
-                    {
-                        models.Add(o as PaymentModel);
-                        adapter.NotifyDataSetChanged();
-                    }), p);
-                }
-            }
         }
 
         private void Send_Click(object sender, EventArgs e)
         {
+            if (account.PaymentMethods == null || account.PaymentMethods.Count == 0)
+            {
+                Toast.MakeText(this, "Please add a payment method before depositing or withdrawing.", ToastLength.Short).Show();
+                return;
+            }
             float change;
             try
             {
-                float.TryParse(balance.Text, out change);
+                float.TryParse(changed.Text, out change);
             }
             catch
             {
                 Toast.MakeText(this, "Invalid change amount.", ToastLength.Short).Show();
                 return;
             }
-            if (depositwithdraw.Text == "Withdraw" && current_balance - change < 0)
+            if (depositwithdraw.Text == "Withdraw" && account.Balance - change < 0)
             {
                 Toast.MakeText(this, "You cannot remove more from your account that you have.", ToastLength.Short).Show();
             }
             else
             {
-                var PersonID = ObjectId.Parse(Intent.GetStringExtra("PersonID"));
                 if (depositwithdraw.Text == "Withdraw")
-                    current_balance -= change;
+                    account.Balance -= change;
                 else
-                    current_balance += change;
-                ModelMethods.ChangeAccountBalance(PersonID, current_balance);
-                Intent intent = new Intent();
-                intent.PutExtra("Balance", current_balance);
-                SetResult(Result.Ok, intent);
-                Finish();
+                    account.Balance += change;
+                ModelMethods.UpdateAccount(account);
+                Return();
             }
+        }
+
+        private void Return()
+        {
+            Intent intent = new Intent(this, typeof(MainActivity));
+            intent.PutExtra("Account", account.ToJson());
+            intent.PutExtra("User", user.ToJson());
+            this.StartActivity(intent);
+            Finish();
         }
     }
 }

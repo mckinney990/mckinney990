@@ -7268,11 +7268,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\forsy\\source\\repos\\MulliganWallet\\MulliganWallet.csproj",
+      "projectUniqueName": "C:\\Users\\forsy\\Desktop\\mckinney990-81b14bd9c4ef916d72bf32579fbb922ca7fa47bf\\MulliganWallet.csproj",
       "projectName": "MulliganWallet",
-      "projectPath": "C:\\Users\\forsy\\source\\repos\\MulliganWallet\\MulliganWallet.csproj",
+      "projectPath": "C:\\Users\\forsy\\Desktop\\mckinney990-81b14bd9c4ef916d72bf32579fbb922ca7fa47bf\\MulliganWallet.csproj",
       "packagesPath": "C:\\Users\\forsy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\forsy\\source\\repos\\MulliganWallet\\obj\\",
+      "outputPath": "C:\\Users\\forsy\\Desktop\\mckinney990-81b14bd9c4ef916d72bf32579fbb922ca7fa47bf\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [

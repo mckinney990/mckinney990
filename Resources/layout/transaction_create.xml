@@ -31,7 +31,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText1"
+            android:id="@+id/txt_create_trans_desc"
             android:inputType="text" />
         <TextView
             android:text="Recipient"
@@ -39,10 +39,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView3" />
-        <AutoCompleteTextView
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/autoCompleteTextView1" />
+            android:id="@+id/txt_create_trans_recipient"
+            android:inputType="text" />
         <TextView
             android:text="Memo"
             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -53,7 +54,7 @@
             android:inputType="textMultiLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText3" />
+            android:id="@+id/txt_create_trans_memo" />
         <TextView
             android:text="Amount"
             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -64,7 +65,7 @@
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText4" />
+            android:id="@+id/txt_create_trans_amount" />
         <TextView
             android:text="Payment Method"
             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -74,7 +75,7 @@
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/spinner1" />
+            android:id="@+id/sp_create_trans_spinner" />
         <LinearLayout
             android:orientation="horizontal"
             android:minWidth="25px"
@@ -97,7 +98,7 @@
                 android:text="Send Money"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/btnTransactionType" />
+                android:id="@+id/btn_create_trans_change_type"
                 android:layout_weight="1" />
         </LinearLayout>
         <LinearLayout
@@ -112,19 +113,19 @@
                 android:text="Send"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/btnSendTransaction" />
+                android:id="@+id/btn_create_trans_send"
                 android:layout_weight="1" />
             <Button
                 android:text="Save"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                 android:id="@+id/btnSaveTransaction" />
+                android:id="@+id/btn_create_trans_save"
                 android:layout_weight="1" />
             <Button
                 android:text="Cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/btnCancelTransaction" />
+                android:id="@+id/btn_create_trans_cancel"
                 android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>

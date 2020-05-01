@@ -40,12 +40,6 @@ namespace MulliganWallet
 
             progress = FindViewById<ProgressBar>(Resource.Id.loginProgress);
             progress.Visibility = ViewStates.Invisible;
-            
-            layout.Click += (object sender, EventArgs e) =>
-            {
-                InputMethodManager manager = (InputMethodManager)this.GetSystemService(Activity.InputMethodService);
-                manager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.None);
-            };
 
             btnLogin.Click += BtnLogin_Click;
 
@@ -62,12 +56,7 @@ namespace MulliganWallet
                 }
             };
 
-            btnCancel.Click += (object sender, EventArgs args) => 
-            {
-                txtUserID.Text = String.Empty;
-                txtPassword.Text = String.Empty;
-                Finish();
-            };
+            btnCancel.Click += (object sender, EventArgs args) => { Finish(); };
         }
 
         private async void BtnLogin_Click(object sender, EventArgs e)
@@ -79,9 +68,11 @@ namespace MulliganWallet
             progress.Visibility = ViewStates.Invisible;
             if (result != null && result.Password == password)
             {
+                var account = await ModelMethods.FindAccountByPersonID(result.Id);
                 Toast.MakeText(this, "Login Successful", ToastLength.Short).Show();
                 Intent intent = new Intent(this, typeof(MainActivity));
-                intent.PutExtra("UserID", result.Id.ToString());
+                intent.PutExtra("Account", account.ToJson());
+                intent.PutExtra("User", result.ToJson());
                 this.StartActivity(intent);
                 Finish();
             }
@@ -90,8 +81,6 @@ namespace MulliganWallet
                 Toast.MakeText(this, "Login failed.", ToastLength.Short).Show();
             }
         }
-
-        
     }
 
 }

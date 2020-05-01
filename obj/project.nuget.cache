@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jSWm2R00YSHzRbymHTwk0DTC1QQQ8IPkiPskLrEIgVdhJh264WbbeqDjx5k1n1iOA3xmc++l6vHarblFyq+lKg==",
+  "dgSpecHash": "g0rpH+PH0IXGbcK+VRWJZGlnFe5VQQDlvgaH6lcOQJvDLvV4fPhB89yc5WcU1dqXWyZIflCR2Tkk414KiELQTg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\forsy\\source\\repos\\MulliganWallet\\MulliganWallet.csproj",
+  "projectFilePath": "C:\\Users\\forsy\\Desktop\\mckinney990-81b14bd9c4ef916d72bf32579fbb922ca7fa47bf\\MulliganWallet.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\forsy\\.nuget\\packages\\dnsclient\\1.3.1\\dnsclient.1.3.1.nupkg.sha512",
     "C:\\Users\\forsy\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",

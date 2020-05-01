@@ -24,7 +24,6 @@ namespace MulliganWallet
         public static IMongoCollection<UserModel> Users = DB.GetCollection<UserModel>("Users");
         public static IMongoCollection<TransactionModel> Transactions = DB.GetCollection<TransactionModel>("Transactions");
     }
-
     public class ModelMethods
     {
         public static async Task<UserModel> FindUserByUserID(String userid)
@@ -58,11 +57,42 @@ namespace MulliganWallet
                 return null;
             }
         }
-        public static async Task<AccountModel> FindAccountByUserID(String userid)
+        public static async Task<AccountModel> FindAccountByID(BsonObjectId ID)
         {
             try
             {
-                var filter = Builders<AccountModel>.Filter.Eq("PersonID", userid);
+                var filter = Builders<AccountModel>.Filter.Eq("Id", ID);
+                var results = await Database.Accounts.FindAsync(filter);
+                var result = await results.FirstAsync();
+                return result;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public static async Task<AccountModel> FindAccountByUserID(string UserID)
+        {
+            try
+            {
+                var filter = Builders<UserModel>.Filter.Eq("Username", UserID)
+                    | Builders<UserModel>.Filter.Eq("Email", UserID)
+                    | Builders<UserModel>.Filter.Eq("PhoneNumber", UserID);
+                var userResults = await Database.Users.FindAsync(filter);
+                var user = await userResults.FirstAsync();
+                var account = await FindAccountByPersonID(user.Id);
+                return account;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public static async Task<AccountModel> FindAccountByPersonID(BsonObjectId PersonID)
+        {
+            try
+            {
+                var filter = Builders<AccountModel>.Filter.Eq("PersonID", PersonID);
                 var results = await Database.Accounts.FindAsync(filter);
                 var result = await results.FirstAsync();
                 return result;
@@ -93,6 +123,129 @@ namespace MulliganWallet
             await Database.Accounts.InsertOneAsync(account);
             return;
         }
-    }
+        public static async void AddPaymentMethod(BsonObjectId PersonID, PaymentModel model)
+        {
+            var account = await FindAccountByPersonID(PersonID);
+            if (account == null)
+            {
+                Console.WriteLine("FAILED!");
+            }
+            else
+            {
+                if (account.PaymentMethods == null)
+                {
+                    account.PaymentMethods = new List<PaymentModel>() { model };
+                }
+                else
+                {
+                    account.PaymentMethods.Add(model);
+                }
+                var payment_methods = account.PaymentMethods;
+                var filter = Builders<AccountModel>.Filter.Eq("PersonID", PersonID);
+                var update = Builders<AccountModel>.Update.Set("PaymentMethods", payment_methods);
+                await Database.Accounts.UpdateOneAsync(filter, update);
+            }
+        }
+        public static async Task<List<PaymentModel>> GetPaymentMethods(BsonObjectId ID)
+        {
+            try
+            {
+                var account = await FindAccountByPersonID(ID);
+                return account.PaymentMethods.ToList();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public static async void UpdatePaymentMethod(BsonObjectId PersonID, PaymentModel model)
+        {
+            var account = await FindAccountByPersonID(PersonID);
+            if (account == null)
+            {
+                Console.WriteLine("FAILED!");
+            }
+            else
+            {
+                if (account.PaymentMethods == null)
+                {
+                    account.PaymentMethods = new List<PaymentModel>() { model };
+                }
+                else
+                {
+                    account.PaymentMethods.Remove(account.PaymentMethods.Find(p => p.Id == model.Id));
+                    account.PaymentMethods.Add(model);
+                }
+                var payment_methods = account.PaymentMethods;
+                var filter = Builders<AccountModel>.Filter.Eq("PersonID", PersonID);
+                var update = Builders<AccountModel>.Update.Set("PaymentMethods", payment_methods);
+                await Database.Accounts.UpdateOneAsync(filter, update);
+            }
+        }
+        public static async void RemovePaymentMethod(BsonObjectId PersonID, PaymentModel model)
+        {
+            var account = await FindAccountByPersonID(PersonID);
+            if (account == null)
+            {
+                Console.WriteLine("FAILED!");
+            }
+            else
+            {
+                if (account.PaymentMethods == null)
+                {
+                    return;
+                }
+                else
+                {
+                    account.PaymentMethods.Remove(account.PaymentMethods.Find(p => p.Id == model.Id));
+                }
+                var payment_methods = account.PaymentMethods;
+                var filter = Builders<AccountModel>.Filter.Eq("PersonID", PersonID);
+                var update = Builders<AccountModel>.Update.Set("PaymentMethods", payment_methods);
+                await Database.Accounts.UpdateOneAsync(filter, update);
+            }
+        }
+        public static async void ChangeAccountBalance(BsonObjectId PersonID, float balance)
+        {
+                var filter = Builders<AccountModel>.Filter.Eq("PersonID", PersonID);
+                var update = Builders<AccountModel>.Update.Set("Balance", balance);
+                await Database.Accounts.UpdateOneAsync(filter, update);
+        }
+        public static async void UpdateUserProfile(UserModel user)
+        {
+            var filter = Builders<UserModel>.Filter.Eq("Id", user.Id);
+            var update = Builders<UserModel>.Update.Set("FullName", user.FullName)
+                .Set("Username", user.Username)
+                .Set("Email", user.Email)
+                .Set("PhoneNumber", user.PhoneNumber);
+            await Database.Users.UpdateOneAsync(filter, update);
+        }
+        public static async void CreateTransaction(TransactionModel trans)
+        {
+            await Database.Transactions.InsertOneAsync(trans);
+        }
+        public static async void UpdateAccount(AccountModel account)
+        {
+            var filter = Builders<AccountModel>.Filter.Eq("Id", account.Id);
+            var update = Builders<AccountModel>.Update.Set("FriendIDs", account.FriendIDs)
+                .Set("SavedTransactions", account.SavedTransactions)
+                .Set("PaymentMethods", account.PaymentMethods)
+                .Set("Balance", account.Balance);
+            await Database.Accounts.UpdateOneAsync(filter, update);
+        }
+        public static async Task<List<TransactionModel>> GetTransactionsInvolvingAccount(AccountModel account)
+        {
+            var filter = Builders<TransactionModel>.Filter.Eq("SenderID", account.Id)
+                | Builders<TransactionModel>.Filter.Eq("RecipientID", account.Id);
+            var results = await Database.Transactions.Find(filter).SortBy(bson => bson.DateCreated).Limit(100).ToListAsync();
+            return results;
+        }
 
+        public static async void UpdateTransactionAccepted(TransactionModel transaction)
+        {
+            var filter = Builders<TransactionModel>.Filter.Eq("Id", transaction.Id);
+            var update = Builders<TransactionModel>.Update.Set("Accepted", transaction.Accepted);
+            await Database.Transactions.UpdateOneAsync(filter, update);
+        }
+    }
 }

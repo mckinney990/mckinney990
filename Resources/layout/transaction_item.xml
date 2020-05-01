@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
+    <TextView
+        android:text="12/24/20 @ 8:16pm || Description here, but what if it moves over the edge? I really wouldn't know. "
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:gravity="center_vertical"
+        android:id="@+id/txt_trans_item_string"/>
+</LinearLayout>

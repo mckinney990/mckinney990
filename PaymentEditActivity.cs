@@ -19,6 +19,8 @@ namespace MulliganWallet
     {
         private EditText Description, NameOnCard, CardNumber, Expiry, SecurityNumber, ZipCode;
         private PaymentModel model;
+        private AccountModel account;
+        private UserModel user;
         private Button save, remove, cancel;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -26,6 +28,9 @@ namespace MulliganWallet
             SetContentView(Resource.Layout.payment_edit);
 
             model = BsonSerializer.Deserialize<PaymentModel>(Intent.GetStringExtra("Model"));
+
+            user = BsonSerializer.Deserialize<UserModel>(Intent.GetStringExtra("User"));
+            account = BsonSerializer.Deserialize<AccountModel>(Intent.GetStringExtra("Account"));
 
             Description = FindViewById<EditText>(Resource.Id.txt_payment_edit_description);
             Description.Text = model.Description;
@@ -52,7 +57,7 @@ namespace MulliganWallet
             remove.Click += Remove_Click;
 
             cancel = FindViewById<Button>(Resource.Id.btn_payment_edit_cancel);
-            cancel.Click += (object sender, EventArgs e) => { Finish(); };
+            cancel.Click += (object sender, EventArgs e) => { Return(); };
 
         }
 
@@ -64,15 +69,22 @@ namespace MulliganWallet
             model.ExpiryDate = Expiry.Text;
             model.SecurityNumber = SecurityNumber.Text;
             model.ZipCode = ZipCode.Text;
-            var PersonID = ObjectId.Parse(Intent.GetStringExtra("PersonID"));
-            ModelMethods.UpdatePaymentMethod(PersonID, model);
-            Finish();
+            ModelMethods.UpdatePaymentMethod(account.PersonID, model);
+            Return();
         }
 
         private void Remove_Click(object sender, EventArgs e)
         {
-            var PersonID = ObjectId.Parse(Intent.GetStringExtra("PersonID"));
-            ModelMethods.RemovePaymentMethod(PersonID, model);
+            ModelMethods.RemovePaymentMethod(account.PersonID, model);
+            Return();
+        }
+
+        private void Return()
+        {
+            Intent intent = new Intent(this, typeof(PaymentMethodActivity));
+            intent.PutExtra("Account", account.ToJson());
+            intent.PutExtra("User", user.ToJson());
+            this.StartActivity(intent);
             Finish();
         }
     }
