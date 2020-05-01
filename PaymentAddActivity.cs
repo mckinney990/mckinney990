@@ -61,7 +61,7 @@ namespace MulliganWallet
                 CardNumber = number.Text,
                 ExpiryDate = expiry.Text,
                 SecurityNumber = security.Text,
-                ZipCode = security.Text
+                ZipCode = zip.Text
             };
             if (account.PaymentMethods == null)
                 account.PaymentMethods = new List<PaymentModel>();

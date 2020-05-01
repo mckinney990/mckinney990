@@ -117,7 +117,10 @@ namespace MulliganWallet
             {
                 Id = ObjectId.GenerateNewId(DateTime.UtcNow),
                 PersonID = user.Id,
-                Balance = 0
+                Balance = 0,
+                FriendIDs = new List<BsonObjectId>(),
+                PaymentMethods = new List<PaymentModel>(),
+                SavedTransactions = new List<BsonObjectId>()
             };
             await Database.Users.InsertOneAsync(user);
             await Database.Accounts.InsertOneAsync(account);
@@ -239,6 +242,8 @@ namespace MulliganWallet
         public static async Task<List<UserModel>> GetListOfFriendsByAccount(AccountModel account)
         {
             List<UserModel> friends = new List<UserModel>();
+            if (account.FriendIDs == null)
+                account.FriendIDs = new List<BsonObjectId>();
             foreach (var id in account.FriendIDs)
             {
                 var friendAccount = await FindAccountByID(id);

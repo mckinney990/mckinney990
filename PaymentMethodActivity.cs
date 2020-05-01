@@ -21,7 +21,7 @@ namespace MulliganWallet
         private Spinner spinner;
         private PaymentMethodAdapter adapter;
         private TextView description, nameoncard, number, expiry, security, zip;
-        private Button add, edit, exit, refresh;
+        private Button add, edit, exit;
         private UserModel user;
         private AccountModel account;
         protected override void OnCreate(Bundle savedInstanceState)
@@ -39,6 +39,7 @@ namespace MulliganWallet
 
             adapter = new PaymentMethodAdapter(this, account.PaymentMethods);
             spinner.Adapter = adapter;
+            spinner.ItemSelected += Spinner_ItemSelected;
 
             description = FindViewById<TextView>(Resource.Id.txtPaymentMethodDescription);
             nameoncard = FindViewById<TextView>(Resource.Id.txtNameOnCard);
@@ -46,6 +47,17 @@ namespace MulliganWallet
             expiry = FindViewById<TextView>(Resource.Id.txtExpiry);
             security = FindViewById<TextView>(Resource.Id.txtSecurityCode);
             zip = FindViewById<TextView>(Resource.Id.txtZipCode);
+
+            if (account.PaymentMethods.Count > 0)
+            {
+                var method = account.PaymentMethods.ElementAt(0);
+                description.Text = method.Description;
+                nameoncard.Text = method.NameOnCard;
+                number.Text = method.CardNumber;
+                expiry.Text = method.ExpiryDate;
+                security.Text = method.SecurityNumber;
+                zip.Text = method.ZipCode;
+            }
 
             add = FindViewById<Button>(Resource.Id.btn_add_pmethod);
             edit = FindViewById<Button>(Resource.Id.btn_edit_pmethod);
@@ -61,6 +73,17 @@ namespace MulliganWallet
                 this.StartActivity(intent);
                 Finish();
             };
+        }
+
+        private void Spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            var method = account.PaymentMethods.ElementAt(e.Position);
+            description.Text = method.Description;
+            nameoncard.Text = method.NameOnCard;
+            number.Text = method.CardNumber;
+            expiry.Text = method.ExpiryDate;
+            security.Text = method.SecurityNumber;
+            zip.Text = method.ZipCode;
         }
 
         private void Add_Click(object sender, EventArgs e)
