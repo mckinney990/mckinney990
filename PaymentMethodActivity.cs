@@ -20,8 +20,6 @@ namespace MulliganWallet
     {
         private Spinner spinner;
         private PaymentMethodAdapter adapter;
-        private List<PaymentModel> models;
-        private SynchronizationContext sc;
         private TextView description, nameoncard, number, expiry, security, zip;
         private Button add, edit, exit, refresh;
         private UserModel user;
@@ -35,12 +33,9 @@ namespace MulliganWallet
             account = BsonSerializer.Deserialize<AccountModel>(Intent.GetStringExtra("Account"));
 
             spinner = FindViewById<Spinner>(Resource.Id.spPaymentMethods);
-            models = new List<PaymentModel>();
 
-            adapter = new PaymentMethodAdapter(this, models);
+            adapter = new PaymentMethodAdapter(this, account.PaymentMethods);
             spinner.Adapter = adapter;
-
-            sc = SynchronizationContext.Current;
 
             description = FindViewById<TextView>(Resource.Id.txtPaymentMethodDescription);
             nameoncard = FindViewById<TextView>(Resource.Id.txtNameOnCard);
@@ -52,10 +47,8 @@ namespace MulliganWallet
             add = FindViewById<Button>(Resource.Id.btn_add_pmethod);
             edit = FindViewById<Button>(Resource.Id.btn_edit_pmethod);
             exit = FindViewById<Button>(Resource.Id.btn_exit_payment_methods);
-            refresh = FindViewById<Button>(Resource.Id.btn_pm_refresh);
 
             add.Click += Add_Click;
-            add.Click += Refresh_Click;
             edit.Click += Edit_Click;
             exit.Click += (object sender, EventArgs args) => 
             {
@@ -65,7 +58,6 @@ namespace MulliganWallet
                 this.StartActivity(intent);
                 Finish();
             };
-            refresh.Click += Refresh_Click;
         }
 
         private void Add_Click(object sender, EventArgs e)
@@ -79,43 +71,19 @@ namespace MulliganWallet
 
         private void Edit_Click(object sender, EventArgs e)
         {
-            if (models.Count == 0)
+            if (account.PaymentMethods == null || account.PaymentMethods.Count == 0)
             {
                 Toast.MakeText(this, "Please refresh and select a payment method before trying to edit something.", ToastLength.Short).Show();
             }
             else
             {
-                PaymentModel model = models[spinner.SelectedItemPosition];
+                PaymentModel model = account.PaymentMethods.ElementAt(spinner.SelectedItemPosition);
                 Intent intent = new Intent(this, typeof(PaymentEditActivity));
                 intent.PutExtra("Model", model.ToJson());
                 intent.PutExtra("User", user.ToJson());
                 intent.PutExtra("Account", account.ToJson());
                 this.StartActivity(intent);
                 Finish();
-            }
-        }
-
-        private async void Refresh_Click(object sender, EventArgs e)
-        {
-            var PaymentMethods = await ModelMethods.GetPaymentMethods(account.PersonID);
-            if (PaymentMethods == null)
-            {
-                Toast.MakeText(this, "You don't have any payment methods on file. Please add a payment method and try again.", ToastLength.Long).Show();
-            }
-            else
-            {
-                sc.Post(new SendOrPostCallback(o => {
-                    models.Clear();
-                    adapter.NotifyDataSetChanged();
-                }), null);
-                foreach (var p in PaymentMethods)
-                {
-                    sc.Post(new SendOrPostCallback(o =>
-                    {
-                        models.Add(o as PaymentModel);
-                        adapter.NotifyDataSetChanged();
-                    }), p);
-                }
             }
         }
     }

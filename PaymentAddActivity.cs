@@ -74,6 +74,7 @@ namespace MulliganWallet
             Intent intent = new Intent(this, typeof(PaymentMethodActivity));
             intent.PutExtra("Account", account.ToJson());
             intent.PutExtra("User", user.ToJson());
+            this.StartActivity(intent);
             Finish();
         }
     }
