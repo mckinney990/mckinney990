@@ -85,7 +85,7 @@ namespace MulliganWallet
             {
                 Toast.MakeText(this, "No payment methods are associated with this account. Please create one first.", ToastLength.Short).Show();
             }
-            else if (account.Balance - model.Amount < 0)
+            else if (account.Balance - model.Amount < 0 || ChangeType.Text != "Receive Money")
             {
                 Toast.MakeText(this, "You don't have enough mount to create this transaction.", ToastLength.Short).Show();
             }
