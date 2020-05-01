@@ -75,13 +75,13 @@
             android:text="Notifications"
             android:layout_width="120dp"
             android:layout_height="match_parent"
-            android:id="@+id/button2"
+            android:id="@+id/btn_main_notifications"
             android:textSize="12dp" />
         <Button
             android:text="QR Reader"
             android:layout_width="110dp"
             android:layout_height="match_parent"
-            android:id="@+id/button3"
+            android:id="@+id/btn_main_qr_reader"
             android:textSize="12dp" />
     </LinearLayout>
     <LinearLayout
@@ -109,7 +109,7 @@
             android:text="Friends"
             android:layout_width="110dp"
             android:layout_height="match_parent"
-            android:id="@+id/button1"
+            android:id="@+id/btn_main_friends"
             android:textSize="12dp" />
     </LinearLayout>
     <Button

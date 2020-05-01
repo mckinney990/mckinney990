@@ -84,7 +84,7 @@ namespace MulliganWallet
 
         private void BtnSavedTransactions_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Toast.MakeText(this, "This is where we'd show your saved transactions.", ToastLength.Short).Show();
         }
 
         private void Back_To_Main_Activity()

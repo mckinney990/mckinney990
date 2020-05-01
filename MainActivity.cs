@@ -45,11 +45,39 @@ namespace MulliganWallet
             makeTransaction = FindViewById<Button>(Resource.Id.btn_main_make_transaction);
             makeTransaction.Click += MakeTransaction_Click;
 
+            viewNotifications = FindViewById<Button>(Resource.Id.btn_main_notifications);
+            viewNotifications.Click += (object sender, EventArgs e) =>
+            {
+                Toast.MakeText(this, "This is where we'd implement notifications.", ToastLength.Short).Show();
+            };
+
+            qrReader = FindViewById<Button>(Resource.Id.btn_main_qr_reader);
+            qrReader.Click += (object sender, EventArgs e) =>
+            {
+                Toast.MakeText(this, "This is where we'd implement the qr reader.", ToastLength.Short).Show();
+            };
+
             viewHistory = FindViewById<Button>(Resource.Id.btn_main_history);
             viewHistory.Click += ViewHistory_Click;
 
+            viewFriends = FindViewById<Button>(Resource.Id.btn_main_friends);
+            viewFriends.Click += ViewFriends_Click;
+
             exit = FindViewById<Button>(Resource.Id.btn_exit_main_menu);
             exit.Click += (object sender, EventArgs e) => { Finish(); };
+        }
+
+        private async void ViewFriends_Click(object sender, EventArgs e)
+        {
+            Intent intent = new Intent(this, typeof(FriendListActivity));
+            intent.PutExtra("Account", account.ToJson());
+            intent.PutExtra("User", user.ToJson());
+            List<UserModel> friends = await ModelMethods.GetListOfFriendsByAccount(account);
+            intent.PutExtra("Friends", friends.ToJson());
+            List<AccountModel> friendAccounds = await ModelMethods.GetListOfAccountsByListOfUsers(friends);
+            intent.PutExtra("FriendAccounts", friendAccounds.ToJson());
+            this.StartActivity(intent);
+            Finish();
         }
 
         private async void ViewHistory_Click(object sender, EventArgs e)

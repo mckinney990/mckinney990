@@ -17,7 +17,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/list_payment_methods"
+        android:id="@+id/list_friends"
         android:layout_weight="1"/>
     <LinearLayout
         android:orientation="horizontal"
@@ -33,14 +33,9 @@
             android:layout_height="match_parent"
             android:id="@+id/btn_add_friend" />
         <Button
-            android:text="Remove"
-            android:layout_width="110dp"
-            android:layout_height="match_parent"
-            android:id="@+id/btn_remove_friend" />
-        <Button
             android:text="Exit"
             android:layout_width="110dp"
             android:layout_height="match_parent"
-            android:id="@+id/btn_exit_payment_methods" />
+            android:id="@+id/btn_exit_friend_list" />
     </LinearLayout>
 </LinearLayout>

@@ -146,18 +146,6 @@ namespace MulliganWallet
                 await Database.Accounts.UpdateOneAsync(filter, update);
             }
         }
-        public static async Task<List<PaymentModel>> GetPaymentMethods(BsonObjectId ID)
-        {
-            try
-            {
-                var account = await FindAccountByPersonID(ID);
-                return account.PaymentMethods.ToList();
-            }
-            catch
-            {
-                return null;
-            }
-        }
         public static async void UpdatePaymentMethod(BsonObjectId PersonID, PaymentModel model)
         {
             var account = await FindAccountByPersonID(PersonID);
@@ -246,6 +234,28 @@ namespace MulliganWallet
             var filter = Builders<TransactionModel>.Filter.Eq("Id", transaction.Id);
             var update = Builders<TransactionModel>.Update.Set("Accepted", transaction.Accepted);
             await Database.Transactions.UpdateOneAsync(filter, update);
+        }
+
+        public static async Task<List<UserModel>> GetListOfFriendsByAccount(AccountModel account)
+        {
+            List<UserModel> friends = new List<UserModel>();
+            foreach (var id in account.FriendIDs)
+            {
+                var friendAccount = await FindAccountByID(id);
+                var friendUser = await FindUserByID(friendAccount.PersonID);
+                friends.Add(friendUser);
+            }
+            return friends;
+        }
+        public static async Task<List<AccountModel>> GetListOfAccountsByListOfUsers(List<UserModel> users)
+        {
+            List<AccountModel> accounts = new List<AccountModel>();
+            foreach (var user in users)
+            {
+                var account = await FindAccountByPersonID(user.Id);
+                accounts.Add(account);
+            }
+            return accounts;
         }
     }
 }

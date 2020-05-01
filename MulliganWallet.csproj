@@ -68,7 +68,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DepositWithdrawActivity.cs" />
+    <Compile Include="FriendAdapter.cs" />
+    <Compile Include="FriendAddActivity.cs" />
+    <Compile Include="FriendListActivity.cs" />
     <Compile Include="LoginActivity.cs" />
+    <Compile Include="OtherProfileActivity.cs" />
     <Compile Include="TransactionMakeActivity.cs" />
     <Compile Include="ModelMethods.cs" />
     <Compile Include="Models.cs" />
@@ -218,6 +222,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\transaction_item.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\friend_item.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\add_friend.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
