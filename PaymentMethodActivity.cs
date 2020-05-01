@@ -34,6 +34,9 @@ namespace MulliganWallet
 
             spinner = FindViewById<Spinner>(Resource.Id.spPaymentMethods);
 
+            if (account.PaymentMethods == null)
+                account.PaymentMethods = new List<PaymentModel>();
+
             adapter = new PaymentMethodAdapter(this, account.PaymentMethods);
             spinner.Adapter = adapter;
 

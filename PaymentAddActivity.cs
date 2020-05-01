@@ -63,7 +63,10 @@ namespace MulliganWallet
                 SecurityNumber = security.Text,
                 ZipCode = security.Text
             };
-            ModelMethods.AddPaymentMethod(account.PersonID, model);
+            if (account.PaymentMethods == null)
+                account.PaymentMethods = new List<PaymentModel>();
+            account.PaymentMethods.Add(model);
+            ModelMethods.UpdateAccount(account);
             Toast.MakeText(this, "Payment method added.", ToastLength.Short).Show();
             Return();
         }
